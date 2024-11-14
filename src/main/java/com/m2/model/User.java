@@ -29,15 +29,10 @@ public class User {
     private String password;
 
     @Column(name="registered_at")
-    private Date registered_at;
+    private Date registeredAt;
 
     @OneToMany(mappedBy="user")
     private List<Advertisement> advertisements;
-
-
-
-
-
 
 
 
