@@ -1,2 +1,6 @@
-package com.m2.service;public interface CategoryService {
+package com.m2.service;
+
+public interface CategoryService {
+
+
 }
