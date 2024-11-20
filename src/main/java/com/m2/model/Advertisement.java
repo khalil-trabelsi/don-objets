@@ -42,7 +42,7 @@ public class Advertisement {
     private String objectState;
 
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
 }
