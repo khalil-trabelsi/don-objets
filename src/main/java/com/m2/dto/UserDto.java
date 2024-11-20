@@ -28,20 +28,7 @@ public class UserDto {
             return null;
         }
 
-        return UserDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .registeredAt(user.getRegisteredAt())
-                .advertisements(
-                        user.getAdvertisements() != null ?
-                                user.getAdvertisements().stream()
-                                        .map(AdvertisementDto::fromEntity)
-                                        .collect(Collectors.toList()) :
-                                null
-                )
-                .build();
+        return UserDto.builder().id(user.getId()).username(user.getUsername()).email(user.getEmail()).password(user.getPassword()).registeredAt(user.getRegisteredAt()).advertisements(user.getAdvertisements() != null ? user.getAdvertisements().stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList()) : null).build();
     }
 
     public static User toEntity(UserDto userDto) {
@@ -57,11 +44,7 @@ public class UserDto {
         user.setRegisteredAt(userDto.getRegisteredAt());
 
         if (userDto.getAdvertisements() != null) {
-            user.setAdvertisements(
-                    userDto.getAdvertisements().stream()
-                            .map(AdvertisementDto::toEntity)
-                            .collect(Collectors.toList())
-            );
+            user.setAdvertisements(userDto.getAdvertisements().stream().map(AdvertisementDto::toEntity).collect(Collectors.toList()));
         }
 
         return user;
