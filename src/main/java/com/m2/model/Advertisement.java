@@ -26,24 +26,23 @@ public class Advertisement {
     private String description;
 
     @Column
-    private Date publication_date;
+    private Date publicationDate;
 
     @Column
     private String location;
 
     @Column
-    private String delivery_option;
+    private String deliveryOption;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @Column
-    private String object_state;
+    private String objectState;
 
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
-
 
 }
