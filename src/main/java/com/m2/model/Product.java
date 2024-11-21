@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table
-public class Advertisement {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,6 @@ public class Advertisement {
     private String deliveryOption;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @Column
