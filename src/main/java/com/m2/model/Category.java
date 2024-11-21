@@ -23,7 +23,7 @@ public class Category {
     private String label;
 
     @OneToMany(mappedBy="category")
-    private List<Product> products;
+    private List<Advertisement> advertisements;
 
     private String description;
 
