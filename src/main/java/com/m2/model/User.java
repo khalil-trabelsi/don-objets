@@ -5,40 +5,32 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name="users", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "username"}))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name= "username")
     private String username;
-
-    @Column(name="email")
     private String email;
-
-    @Column(name="password")
     private String password;
-
-    @Column(name="registered_at")
-    private Date registered_at;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Date registeredAt;
 
     @OneToMany(mappedBy = "user")
-    private List<Advertisement> advertisements;
+    private Collection<Advertisement> advertisements;
 
-
-
-
-
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles;
 
 
 }

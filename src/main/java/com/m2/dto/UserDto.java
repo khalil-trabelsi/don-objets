@@ -28,7 +28,15 @@ public class UserDto {
             return null;
         }
 
-        return UserDto.builder().id(user.getId()).username(user.getUsername()).email(user.getEmail()).password(user.getPassword()).registeredAt(user.getRegisteredAt()).advertisements(user.getAdvertisements() != null ? user.getAdvertisements().stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList()) : null).build();
+        return UserDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .email(user.getEmail())
+                .registeredAt(user.getRegisteredAt())
+                .advertisements(user.getAdvertisements() != null ? user.getAdvertisements()
+                        .stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList()) : null)
+                .build();
     }
 
     public static User toEntity(UserDto userDto) {

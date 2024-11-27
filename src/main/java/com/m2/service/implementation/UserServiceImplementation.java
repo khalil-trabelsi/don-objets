@@ -6,7 +6,9 @@ import com.m2.repository.UserRepository;
 import com.m2.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,21 +16,26 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional
 public class UserServiceImplementation implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImplementation(UserRepository userRepository) {
+    public UserServiceImplementation(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserDto save(UserDto userDto) {
-        log.info("Saving new user");
-        if (userDto == null) {
-            throw new IllegalArgumentException("UserDto cannot be null");
-        }
+        log.info("Saving new user" + userDto.getUsername());
+//        if (userDto == null) {
+//            throw new IllegalArgumentException("UserDto cannot be null");
+//        }
+
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return UserDto.fromEntity(userRepository.save(UserDto.toEntity(userDto)));
     }
 
@@ -83,6 +90,14 @@ public class UserServiceImplementation implements UserService {
             log.warn("User with ID {} not found.", id);
             throw new IllegalArgumentException("User not found");
         }
+    }
 
+    @Override
+    public void AddRoleToUser(String roleName, String email) {
+    }
+
+    @Override
+    public User loadUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
     }
 }

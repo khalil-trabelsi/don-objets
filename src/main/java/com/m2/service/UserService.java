@@ -1,6 +1,7 @@
 package com.m2.service;
 
 import com.m2.dto.UserDto;
+import com.m2.model.User;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public interface UserService {
     List<UserDto> getAllUsers();
 
     void delete(int id);
+
+    void AddRoleToUser(String roleName, String email);
+
+    User loadUserByUsername(String username);
+
 }

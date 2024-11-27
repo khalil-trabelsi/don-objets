@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class CategoryController {
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/html/home")
     String Index() {
         return "home";
     }
+
 }

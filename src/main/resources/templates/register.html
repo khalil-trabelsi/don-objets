@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .container-md {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-md d-flex flex-column justify-content-center align-items-center w-100">
+        <div th:if="${success}" class="alert alert-success w-50" role="alert">
+           Votre compte a été crée avec succès <a href="/html/login" class="alert-link">Se connecter</a>
+        </div>
+        <div class="card w-50">
+            <div class="card-header bg-primary text-light">
+                <h4>Nouveau client ?</h4>
+            </div>
+            <div class="card-body" >
+                <form method="post" th:action="@{save}" th:object="${user}">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Adresse mail</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username"  th:field="*{username}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" th:field="*{password}">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Créer mon compte</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
