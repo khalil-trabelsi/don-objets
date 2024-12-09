@@ -2,6 +2,7 @@ package com.m2.service;
 
 import com.m2.dto.CategoryDto;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CategoryService {
@@ -11,5 +12,10 @@ public interface CategoryService {
 
   CategoryDto findByLabel(String label);
 
+  List<CategoryDto> findAll();
+
+  CategoryDto updateCategory(Integer id, CategoryDto categoryDto);
+
+  public void deleteById(Integer id);
 
 }

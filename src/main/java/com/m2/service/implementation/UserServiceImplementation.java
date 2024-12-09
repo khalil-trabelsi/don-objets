@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class UserServiceImplementation implements UserService {
 //        }
 
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userDto.setRegisteredAt(new Date());
         return UserDto.fromEntity(userRepository.save(UserDto.toEntity(userDto)));
     }
 

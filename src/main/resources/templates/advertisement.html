@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="index.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d6ce44b3a9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div layout:fragment="wrapper">
+   <div class="container-md">
+       <div class="row">
+           <div class="col-md-6 col-lg-3"  th:each="advertisement: ${advertisements}">
+               <div class="card mb-3">
+                   <div class="card-body">
+                       <div>
+                           <h5 th:text="${advertisement.title}"></h5>
+                           <a class="text-secondary" href="" th:text="${advertisement.category.label}"></a>
+                           <span style="font-size: 12px" class="badge text-bg-success text-light" th:text="${advertisement.objectState}"></span>
+                       </div>
+                       <p class="" th:text="${advertisement.description}"></p>
+                       <div class="d-flex flex-column ">
+                           <span>
+                               <i class="fa-solid fa-location-dot"></i>
+                               <span th:text="${advertisement.location}"></span>
+                           </span>
+                           <span>
+                               <i class="fa-solid fa-clock"></i>
+                               <span href="" th:text="${#dates.format(advertisement.publicationDate, 'yyyy-MM-dd HH:mm')}"></span>
+                           </span>
+                           <span>
+                               <i class="fa-solid fa-pen"></i>
+                               <span>By </span>
+                               <a href="" th:text="${advertisement.user.username}"></a>
+                           </span>
+                           <span style="font-size: 16px" class="badge text-bg-warning text-light mt-1" th:text="${advertisement.deliveryOption}"></span>
+                       </div>
+                   </div>
+                   <div class="card-footer justify-content-between align-items-center d-flex">
+                       <div>
+                           <button class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button>
+                           <button class="btn btn-danger"><i class="fa-regular fa-heart"></i></button>
+                       </div>
+                       <button class="btn btn-info text-light"><i class="fa-regular fa-message"></i></button>
+                   </div>
+               </div>
+           </div>
+       </div>
+        <ul class="nav-pills navbar-nav mt-4 d-flex justify-content-center align-items-center flex-row">
+            <li class="nav-item me-2" th:each="page, status: ${pages}">
+                <a th:class="${status.index == currentPage ? 'btn btn-primary': 'btn btn-outline-primary' }"
+                   th:href="@{/(page=${status.index})}"
+                   th:text="${status.index + 1}"></a>
+            </li>
+        </ul>
+   </div>
+</div>
+</body>
+</html>

@@ -11,7 +11,7 @@ public interface AdvertisementService {
 
     AdvertisementDto findById(int id);
 
-    AdvertisementDto update(AdvertisementDto advertisementDto);
+    AdvertisementDto update(Integer id,AdvertisementDto advertisementDto);
 
     void delete(int id);
 }

@@ -22,8 +22,8 @@ public class User {
     private String username;
     private String email;
     private String password;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+//    @Temporal(TemporalType.DATE)
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date registeredAt;
 
     @OneToMany(mappedBy = "user")

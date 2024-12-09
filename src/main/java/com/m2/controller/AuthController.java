@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
 
     private UserService userService;
-    @GetMapping(value="html/login")
+    @GetMapping(value="login")
     public String login() {
         return "login";
     }
 
-    @GetMapping(value="html/register")
+    @GetMapping(value="register")
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @PostMapping(path = "html/save")
+    @PostMapping(path = "save")
     public String save(Model model, @ModelAttribute User user) {
         log.info(user.getPassword());
         userService.save(UserDto.fromEntity(user));

@@ -1,5 +1,8 @@
 package com.m2.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.m2.model.Advertisement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,16 +15,19 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AdvertisementDto {
 
+    @JsonProperty("id")
+    @JacksonXmlProperty(localName = "id")
     private int id;
+
     private String title;
     private String description;
     private Date publicationDate;
     private String location;
     private String deliveryOption;
     private String objectState;
-
     private UserDto user;
     private CategoryDto category;
 

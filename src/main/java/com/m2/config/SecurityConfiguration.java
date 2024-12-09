@@ -12,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
-
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
@@ -22,25 +24,20 @@ public class SecurityConfiguration{
    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin((form) -> form
-               .loginPage("/html/login")
+               .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-               .defaultSuccessUrl("/html/home", true)
-                .failureUrl("/html/login?loginError=true")
-            ).logout(logout -> logout
-                        .logoutSuccessUrl("/html/login?logoutSuccess=true")
-                        .deleteCookies("JSESSIONID"));
-        httpSecurity
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**")) // Désactive CSRF pour la console H2
+               .defaultSuccessUrl("/", true)
+                .failureUrl("/login?loginError=true"))
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logoutSuccess=true")
+                        .deleteCookies("JSESSIONID"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/api/**"))
                 .authorizeHttpRequests(
                 (requests) -> {
-                    requests.anyRequest().permitAll()
-//                            .requestMatchers("/html/login", "/html/register", "/html/home", "/html/save").permitAll()
-//                            .requestMatchers("/webjars/**", "/h2-console/**", "/css/**").permitAll()
-//                            .requestMatchers("/html/**").authenticated()
-                    ;
-                }
+                    requests.anyRequest().permitAll();}
                 )
+                .cors(Customizer.withDefaults())
                 .headers((headers) -> headers.frameOptions(Customizer.withDefaults()).disable());
 
        ;
@@ -53,5 +50,17 @@ public class SecurityConfiguration{
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 
 }

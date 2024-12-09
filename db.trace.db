@@ -495,3 +495,623 @@ delete * FROM USERS [42001-224]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "delete [*]* FROM USERS"; attendu "identifier"
 Syntax error in SQL statement "delete [*]* FROM USERS"; expected "identifier"; SQL statement:
 delete * FROM USERS [42001-224]
+2024-12-07 14:26:59.098005+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "smartphone desc" non trouvée
+Column "smartphone desc" not found; SQL statement:
+INSERT INTO CATEGORY (description, label) VALUES ("smartphone desc", "smartphones") [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:300)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp.query(WebApp.java:1119)
+	at org.h2.server.web.WebApp.process(WebApp.java:245)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:177)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:117)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-12-07 14:27:09.898812+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "smartphone desc" non trouvée
+Column "smartphone desc" not found; SQL statement:
+INSERT INTO category (description, label) VALUES ("smartphone desc", "smartphones") [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:300)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp.query(WebApp.java:1119)
+	at org.h2.server.web.WebApp.process(WebApp.java:245)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:177)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:117)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-12-07 14:27:31.118804+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Colonne "smartphones" non trouvée
+Column "smartphones" not found; SQL statement:
+INSERT INTO category (description, label) VALUES ('smartphone desc', "smartphones") [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:300)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1345)
+	at org.h2.server.web.WebApp.query(WebApp.java:1143)
+	at org.h2.server.web.WebApp.query(WebApp.java:1119)
+	at org.h2.server.web.WebApp.process(WebApp.java:245)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:177)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:117)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-12-08 11:10:09.320107+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "select [*]° from advertisement"
+Syntax error in SQL statement "select [*]° from advertisement"; SQL statement:
+select ° from advertisement [42000-224]
+2024-12-08 20:48:32.000606+01:00 database: wrong user or password; user: "SA"
+org.h2.message.DbException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-224]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Engine.openSession(Engine.java:154)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:343)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:125)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:288)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:811)
+	at org.h2.server.web.WebApp.login(WebApp.java:1039)
+	at org.h2.server.web.WebApp.process(WebApp.java:227)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:177)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:117)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 96 more
+2024-12-08 21:11:43.757371+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "select  [*]° FROM CATEGORY"
+Syntax error in SQL statement "select  [*]° FROM CATEGORY"; SQL statement:
+select  ° FROM CATEGORY [42000-224]
+2024-12-08 21:11:48.355626+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "select  [*]° FROM CATEGORY"
+Syntax error in SQL statement "select  [*]° FROM CATEGORY"; SQL statement:
+select  ° FROM CATEGORY [42000-224]
+2024-12-08 21:11:58.542480+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "select [*]%£FROM CATEGORY"; attendu "DISTINCT, ALL, *, INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"
+Syntax error in SQL statement "select [*]%£FROM CATEGORY"; expected "DISTINCT, ALL, *, INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+select %£FROM CATEGORY [42001-224]
+2024-12-08 23:00:02.521021+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO category (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"
+Syntax error in SQL statement "INSERT INTO category (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"; SQL statement:
+INSERT INTO category (label, description) VALUES
+( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),
+('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),
+( 'Vêtements', 'Habits, accessoires de mode, chaussures'),
+('Jardinage', 'Outils et accessoires pour le jardin'),
+(Véhicules', 'Voitures, motos, vélos'); [42000-224]
+2024-12-08 23:00:33.666859+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO category (label, description) VALUES\000d\000a( ""Électronique"", ""Appareils électroniques tels que téléphones, ordinateurs""),[*]"; attendu "ROW (, (, DEFAULT, INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"
+Syntax error in SQL statement "INSERT INTO category (label, description) VALUES\000d\000a( ""Électronique"", ""Appareils électroniques tels que téléphones, ordinateurs""),[*]"; expected "ROW (, (, DEFAULT, INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+INSERT INTO category (label, description) VALUES
+( "Électronique", "Appareils électroniques tels que téléphones, ordinateurs"), [42001-224]
+2024-12-08 23:00:54.738063+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"
+Syntax error in SQL statement "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"; SQL statement:
+INSERT INTO CATEGORY (label, description) VALUES
+( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),
+('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),
+( 'Vêtements', 'Habits, accessoires de mode, chaussures'),
+('Jardinage', 'Outils et accessoires pour le jardin'),
+(Véhicules', 'Voitures, motos, vélos'); [42000-224]
+2024-12-08 23:00:57.280268+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"
+Syntax error in SQL statement "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"; SQL statement:
+INSERT INTO CATEGORY (label, description) VALUES
+( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),
+('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),
+( 'Vêtements', 'Habits, accessoires de mode, chaussures'),
+('Jardinage', 'Outils et accessoires pour le jardin'),
+(Véhicules', 'Voitures, motos, vélos'); [42000-224]
+2024-12-08 23:00:58.113273+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"
+Syntax error in SQL statement "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"; SQL statement:
+INSERT INTO CATEGORY (label, description) VALUES
+( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),
+('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),
+( 'Vêtements', 'Habits, accessoires de mode, chaussures'),
+('Jardinage', 'Outils et accessoires pour le jardin'),
+(Véhicules', 'Voitures, motos, vélos'); [42000-224]
+2024-12-08 23:00:58.298347+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"
+Syntax error in SQL statement "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"; SQL statement:
+INSERT INTO CATEGORY (label, description) VALUES
+( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),
+('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),
+( 'Vêtements', 'Habits, accessoires de mode, chaussures'),
+('Jardinage', 'Outils et accessoires pour le jardin'),
+(Véhicules', 'Voitures, motos, vélos'); [42000-224]
+2024-12-08 23:00:58.491243+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"
+Syntax error in SQL statement "INSERT INTO CATEGORY (label, description) VALUES\000d\000a( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),\000d\000a('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),\000d\000a( 'Vêtements', 'Habits, accessoires de mode, chaussures'),\000d\000a('Jardinage', 'Outils et accessoires pour le jardin'),\000d\000a(Véhicules', 'Voitures, motos, vélos[*]');"; SQL statement:
+INSERT INTO CATEGORY (label, description) VALUES
+( 'Électronique', 'Appareils électroniques tels que téléphones, ordinateurs'),
+('Meubles', 'Articles pour la maison comme les chaises, tables, etc.'),
+( 'Vêtements', 'Habits, accessoires de mode, chaussures'),
+('Jardinage', 'Outils et accessoires pour le jardin'),
+(Véhicules', 'Voitures, motos, vélos'); [42000-224]
+2024-12-08 23:05:23.699620+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO ADVERTISEMENT (title, description, publication_date, location, delivery_option, object_state, user_id, category_id) VALUES\000d\000a('iPhone 12', 'Un iPhone 12 en très bon état, couleur noire', '2024-12-08 10:00:00', 'Paris, France', 'Livraison incluse', 'Très bon état', 1, 12),\000d\000a('Table en bois', 'Table pour 6 personnes, idéale pour la salle à manger', '2024-12-08 11:30:00', 'Lyon, France', 'En main propre', 'Bon état', 1, 13),\000d\000a('Veste en cuir', 'Veste pour homme taille M, en cuir véritable', '2024-12-08 15:00:00', 'Marseille, France', 'Livraison incluse', 'Comme neuf', 1, 14),\000d\000a('Tondeuse à gazon', 'Tondeuse électrique performante, marque XYZ', '2024-12-08 16:00:00', 'Toulouse, France', 'En main propre', 'Bon état', 1, 15),\000d\000a('Vélo tout terrain', 'Vélo VTT, adapté pour les randonnées', '2024-12-08 17:30:00', 'Nice, France', 'Livraison incluse', 'Très bon état', 1, [*])"; attendu "DEFAULT, INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"
+Syntax error in SQL statement "INSERT INTO ADVERTISEMENT (title, description, publication_date, location, delivery_option, object_state, user_id, category_id) VALUES\000d\000a('iPhone 12', 'Un iPhone 12 en très bon état, couleur noire', '2024-12-08 10:00:00', 'Paris, France', 'Livraison incluse', 'Très bon état', 1, 12),\000d\000a('Table en bois', 'Table pour 6 personnes, idéale pour la salle à manger', '2024-12-08 11:30:00', 'Lyon, France', 'En main propre', 'Bon état', 1, 13),\000d\000a('Veste en cuir', 'Veste pour homme taille M, en cuir véritable', '2024-12-08 15:00:00', 'Marseille, France', 'Livraison incluse', 'Comme neuf', 1, 14),\000d\000a('Tondeuse à gazon', 'Tondeuse électrique performante, marque XYZ', '2024-12-08 16:00:00', 'Toulouse, France', 'En main propre', 'Bon état', 1, 15),\000d\000a('Vélo tout terrain', 'Vélo VTT, adapté pour les randonnées', '2024-12-08 17:30:00', 'Nice, France', 'Livraison incluse', 'Très bon état', 1, [*])"; expected "DEFAULT, INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+INSERT INTO ADVERTISEMENT (title, description, publication_date, location, delivery_option, object_state, user_id, category_id) VALUES
+('iPhone 12', 'Un iPhone 12 en très bon état, couleur noire', '2024-12-08 10:00:00', 'Paris, France', 'Livraison incluse', 'Très bon état', 1, 12),
+('Table en bois', 'Table pour 6 personnes, idéale pour la salle à manger', '2024-12-08 11:30:00', 'Lyon, France', 'En main propre', 'Bon état', 1, 13),
+('Veste en cuir', 'Veste pour homme taille M, en cuir véritable', '2024-12-08 15:00:00', 'Marseille, France', 'Livraison incluse', 'Comme neuf', 1, 14),
+('Tondeuse à gazon', 'Tondeuse électrique performante, marque XYZ', '2024-12-08 16:00:00', 'Toulouse, France', 'En main propre', 'Bon état', 1, 15),
+('Vélo tout terrain', 'Vélo VTT, adapté pour les randonnées', '2024-12-08 17:30:00', 'Nice, France', 'Livraison incluse', 'Très bon état', 1, ) [42001-224]
+2024-12-09 11:27:40.426669+01:00 database: wrong user or password; user: "SA"
+org.h2.message.DbException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-224]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Engine.openSession(Engine.java:154)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:343)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:125)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:288)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:811)
+	at org.h2.server.web.WebApp.login(WebApp.java:1039)
+	at org.h2.server.web.WebApp.process(WebApp.java:227)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:177)
+	at org.h2.server.web.JakartaWebServlet.doGet(JakartaWebServlet.java:129)
+	at org.h2.server.web.JakartaWebServlet.doPost(JakartaWebServlet.java:166)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:117)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Mauvais nom d'utilisateur ou mot de passe
+Wrong user name or password [28000-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 96 more
+2024-12-09 11:29:10.925363+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "INSERT INTO ADVERTISEMENT (title, description, publication_date, location, delivery_option, object_state, user_id, category_id) VALUES\000d\000a('MacBook Pro', 'MacBook Pro 2020 avec processeur M1, excellent état', '2024-12-09 09:00:00', 'Paris, France', 'Livraison incluse', 'Comme neuf', 18, 12),\000d\000a('Canapé 3 places', 'Canapé confortable, tissu gris, très bon état', '2024-12-09 10:30:00', 'Lille, France', 'En main propre', 'Très bon état', 18, 13),\000d\000a('Chaussures de randonnée', 'Chaussures pour homme taille 42, utilisées une fois', '2024-12-09 11:45:00', 'Grenoble, France', 'Livraison incluse', 'Comme neuf', 18, 14),\000d\000a('Tronçonneuse électrique', 'Tronçonneuse puissante, idéale pour les travaux de jardinage', '2024-12-09 13:00:00', 'Dijon, France', 'En main propre', 'Bon état', 18, 15),\000d\000a('Scooter 125cc', 'Scooter 125cc, très économique, parfait pour la ville', '2024-12-09 14:30:00', 'Bordeaux, France', 'Livraison incluse', 'Bon état', 18, 16),\000d\000a('Samsung Galaxy S21', 'Smartphone Samsung Galaxy S21, écran impeccable', '2024-12-09 15:00:00', 'Toulouse, France', 'Livraison incluse', 'Comme neuf', 19, 12),\000d\000a('Bibliothèque en bois', 'Grande bibliothèque en bois massif, état correct', '2024-12-09 16:00:00', 'Rennes, France', 'En main propre', 'Bon état', 18, 13),\000d\000a('Montre connectée', 'Montre connectée XYZ, compatible iOS et Android', '2024-12-09 17:30:00', 'Strasbourg, France', 'Livraison incluse', 'Très bon état', [*]&è, 12),\000d\000a('Lustre vintage', 'Lustre en métal doré, design rétro', '2024-12-09 18:45:00', 'Nantes, France', 'En main propre', 'Bon état', 5, 13),\000d\000a('Vélo électrique', 'Vélo électrique pliable, parfait pour les déplacements urbains', '2024-12-09 20:00:00', 'Lyon, France', 'Livraison incluse', 'Comme neuf', 19, 16),\000d\000a('Sac à main en cuir', 'Sac à main noir, cuir véritable, état impeccable', '2024-12-09 21:00:00', 'Marseille, France', 'Livraison incluse', 'Très bon état', 19, 14),\000d\000a('Jeu de société', 'Jeu de société pour 2-6 joueurs, comme neuf', '2024-12-09 22:15:00', 'Tours, France', 'Livraison incluse', 'Comme neuf', 19, 13)"
+Syntax error in SQL statement "INSERT INTO ADVERTISEMENT (title, description, publication_date, location, delivery_option, object_state, user_id, category_id) VALUES\000d\000a('MacBook Pro', 'MacBook Pro 2020 avec processeur M1, excellent état', '2024-12-09 09:00:00', 'Paris, France', 'Livraison incluse', 'Comme neuf', 18, 12),\000d\000a('Canapé 3 places', 'Canapé confortable, tissu gris, très bon état', '2024-12-09 10:30:00', 'Lille, France', 'En main propre', 'Très bon état', 18, 13),\000d\000a('Chaussures de randonnée', 'Chaussures pour homme taille 42, utilisées une fois', '2024-12-09 11:45:00', 'Grenoble, France', 'Livraison incluse', 'Comme neuf', 18, 14),\000d\000a('Tronçonneuse électrique', 'Tronçonneuse puissante, idéale pour les travaux de jardinage', '2024-12-09 13:00:00', 'Dijon, France', 'En main propre', 'Bon état', 18, 15),\000d\000a('Scooter 125cc', 'Scooter 125cc, très économique, parfait pour la ville', '2024-12-09 14:30:00', 'Bordeaux, France', 'Livraison incluse', 'Bon état', 18, 16),\000d\000a('Samsung Galaxy S21', 'Smartphone Samsung Galaxy S21, écran impeccable', '2024-12-09 15:00:00', 'Toulouse, France', 'Livraison incluse', 'Comme neuf', 19, 12),\000d\000a('Bibliothèque en bois', 'Grande bibliothèque en bois massif, état correct', '2024-12-09 16:00:00', 'Rennes, France', 'En main propre', 'Bon état', 18, 13),\000d\000a('Montre connectée', 'Montre connectée XYZ, compatible iOS et Android', '2024-12-09 17:30:00', 'Strasbourg, France', 'Livraison incluse', 'Très bon état', [*]&è, 12),\000d\000a('Lustre vintage', 'Lustre en métal doré, design rétro', '2024-12-09 18:45:00', 'Nantes, France', 'En main propre', 'Bon état', 5, 13),\000d\000a('Vélo électrique', 'Vélo électrique pliable, parfait pour les déplacements urbains', '2024-12-09 20:00:00', 'Lyon, France', 'Livraison incluse', 'Comme neuf', 19, 16),\000d\000a('Sac à main en cuir', 'Sac à main noir, cuir véritable, état impeccable', '2024-12-09 21:00:00', 'Marseille, France', 'Livraison incluse', 'Très bon état', 19, 14),\000d\000a('Jeu de société', 'Jeu de société pour 2-6 joueurs, comme neuf', '2024-12-09 22:15:00', 'Tours, France', 'Livraison incluse', 'Comme neuf', 19, 13)"; SQL statement:
+INSERT INTO ADVERTISEMENT (title, description, publication_date, location, delivery_option, object_state, user_id, category_id) VALUES
+('MacBook Pro', 'MacBook Pro 2020 avec processeur M1, excellent état', '2024-12-09 09:00:00', 'Paris, France', 'Livraison incluse', 'Comme neuf', 18, 12),
+('Canapé 3 places', 'Canapé confortable, tissu gris, très bon état', '2024-12-09 10:30:00', 'Lille, France', 'En main propre', 'Très bon état', 18, 13),
+('Chaussures de randonnée', 'Chaussures pour homme taille 42, utilisées une fois', '2024-12-09 11:45:00', 'Grenoble, France', 'Livraison incluse', 'Comme neuf', 18, 14),
+('Tronçonneuse électrique', 'Tronçonneuse puissante, idéale pour les travaux de jardinage', '2024-12-09 13:00:00', 'Dijon, France', 'En main propre', 'Bon état', 18, 15),
+('Scooter 125cc', 'Scooter 125cc, très économique, parfait pour la ville', '2024-12-09 14:30:00', 'Bordeaux, France', 'Livraison incluse', 'Bon état', 18, 16),
+('Samsung Galaxy S21', 'Smartphone Samsung Galaxy S21, écran impeccable', '2024-12-09 15:00:00', 'Toulouse, France', 'Livraison incluse', 'Comme neuf', 19, 12),
+('Bibliothèque en bois', 'Grande bibliothèque en bois massif, état correct', '2024-12-09 16:00:00', 'Rennes, France', 'En main propre', 'Bon état', 18, 13),
+('Montre connectée', 'Montre connectée XYZ, compatible iOS et Android', '2024-12-09 17:30:00', 'Strasbourg, France', 'Livraison incluse', 'Très bon état', &è, 12),
+('Lustre vintage', 'Lustre en métal doré, design rétro', '2024-12-09 18:45:00', 'Nantes, France', 'En main propre', 'Bon état', 5, 13),
+('Vélo électrique', 'Vélo électrique pliable, parfait pour les déplacements urbains', '2024-12-09 20:00:00', 'Lyon, France', 'Livraison incluse', 'Comme neuf', 19, 16),
+('Sac à main en cuir', 'Sac à main noir, cuir véritable, état impeccable', '2024-12-09 21:00:00', 'Marseille, France', 'Livraison incluse', 'Très bon état', 19, 14),
+('Jeu de société', 'Jeu de société pour 2-6 joueurs, comme neuf', '2024-12-09 22:15:00', 'Tours, France', 'Livraison incluse', 'Comme neuf', 19, 13) [42000-224]

@@ -1,5 +1,6 @@
 package com.m2.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.m2.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +20,10 @@ public class UserDto {
     private int id;
     private String username;
     private String email;
+    @JsonIgnore
     private String password;
     private Date registeredAt;
+    @JsonIgnore
     private List<AdvertisementDto> advertisements;
 
     public static UserDto fromEntity(User user) {
@@ -34,8 +37,6 @@ public class UserDto {
                 .password(user.getPassword())
                 .email(user.getEmail())
                 .registeredAt(user.getRegisteredAt())
-                .advertisements(user.getAdvertisements() != null ? user.getAdvertisements()
-                        .stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList()) : null)
                 .build();
     }
 
@@ -51,10 +52,7 @@ public class UserDto {
         user.setPassword(userDto.getPassword());
         user.setRegisteredAt(userDto.getRegisteredAt());
 
-        if (userDto.getAdvertisements() != null) {
-            user.setAdvertisements(userDto.getAdvertisements().stream().map(AdvertisementDto::toEntity).collect(Collectors.toList()));
-        }
-
         return user;
     }
+
 }
