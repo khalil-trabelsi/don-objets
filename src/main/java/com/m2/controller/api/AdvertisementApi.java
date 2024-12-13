@@ -19,27 +19,27 @@ public class AdvertisementApi {
     }
     @GetMapping
     public List<AdvertisementDto> getAllAdvertisements() {
-        return  this.advertisementService.findAll();
+        return  this.advertisementService.getAllAdvertisements();
     }
 
     @GetMapping("/{id}")
     public AdvertisementDto getAdvertisementById(@PathVariable Integer id) {
-        return advertisementService.findById(id);
+        return advertisementService.getAdvertisementById(id);
     }
 
     @PostMapping
     public AdvertisementDto save(@RequestBody AdvertisementDto advertisementDto) {
-        return advertisementService.save(advertisementDto);
+        return advertisementService.createAdvertisement(advertisementDto);
     }
 
     @PutMapping("/{id}")
     public AdvertisementDto updateAdvertisement(@PathVariable Integer id, @RequestBody AdvertisementDto advertisementDto) {
-        return advertisementService.update(id, advertisementDto);
+        return advertisementService.updateAdvertisement(id, advertisementDto);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
-        advertisementService.delete(id);
+        advertisementService.deleteAdvertisement(id);
     }
 
 

@@ -38,10 +38,7 @@ public class SecurityConfiguration{
                     requests.anyRequest().permitAll();}
                 )
                 .cors(Customizer.withDefaults())
-                .headers((headers) -> headers.frameOptions(Customizer.withDefaults()).disable());
-
-       ;
-
+                .headers((headers) -> headers.frameOptions(Customizer.withDefaults()).disable());;
 
 
         return httpSecurity.build();

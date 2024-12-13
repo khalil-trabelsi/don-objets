@@ -54,6 +54,9 @@ public class CategoryDto {
         }
 
         Category category = new Category();
+        if (categoryDto.getId() != null) {
+            category.setId(categoryDto.getId());
+        }
         category.setLabel(categoryDto.getLabel());
         category.setDescription(categoryDto.getDescription());
 

@@ -1,24 +1,25 @@
 package com.m2.service.implementation;
 
 import com.m2.dto.AdvertisementDto;
-import com.m2.dto.CategoryDto;
 import com.m2.dto.UserDto;
 import com.m2.exception.EntityNotFoundException;
 import com.m2.model.Advertisement;
 import com.m2.model.Category;
+import com.m2.model.Search;
 import com.m2.model.User;
 import com.m2.repository.AdvertisementRepository;
 import com.m2.repository.CategoryRepository;
+import com.m2.repository.SearchRepository;
 import com.m2.repository.UserRepository;
 import com.m2.service.AdvertisementService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.time.Instant;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -28,15 +29,22 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
 
-    public AdvertisementServiceImplementation(AdvertisementRepository advertisementRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
+    private final SearchRepository searchRepository;
+    public AdvertisementServiceImplementation(
+            AdvertisementRepository advertisementRepository,
+            UserRepository userRepository,
+            CategoryRepository categoryRepository,
+            SearchRepository searchRepository
+    ) {
         this.advertisementRepository = advertisementRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
+        this.searchRepository = searchRepository;
     }
 
 
     @Override
-    public AdvertisementDto save(AdvertisementDto advertisementDto) {
+    public AdvertisementDto createAdvertisement(AdvertisementDto advertisementDto) {
         log.info("Saving new advertisement: {}", advertisementDto);
 
         if (advertisementDto == null) {
@@ -58,13 +66,12 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
         advertisementDto.setPublicationDate(new Date());
         Advertisement advertisement = AdvertisementDto.toEntity(advertisementDto);
         advertisement.setUser(user.get());
-        advertisement.setCategory(category.get());
 
         return AdvertisementDto.fromEntity(advertisementRepository.save(advertisement));
     }
 
     @Override
-    public List<AdvertisementDto> findAll() {
+    public List<AdvertisementDto> getAllAdvertisements() {
         List<Advertisement> advertisements = advertisementRepository.findAll();
         return advertisements.stream()
                 .map(AdvertisementDto::fromEntity)
@@ -72,7 +79,7 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
     }
 
     @Override
-    public AdvertisementDto findById(int id) {
+    public AdvertisementDto getAdvertisementById(int id) {
         log.info("Fetching advertisement by id: {}", id);
         return advertisementRepository.findById(id)
                 .map(AdvertisementDto::fromEntity)
@@ -80,7 +87,7 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
     }
 
     @Override
-    public AdvertisementDto update(Integer id, AdvertisementDto advertisementDto) {
+    public AdvertisementDto updateAdvertisement(Integer id, AdvertisementDto advertisementDto) {
         if (advertisementDto == null) {
             throw new IllegalArgumentException("AdvertisementDto cannot be null");
         }
@@ -118,7 +125,7 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
     }
 
     @Override
-    public void delete(int id) {
+    public void deleteAdvertisement(int id) {
         if (advertisementRepository.existsById(id)) {
             advertisementRepository.deleteById(id);
         } else {
@@ -126,4 +133,37 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
             throw new EntityNotFoundException("Advertisement not found");
         }
     }
+
+    @Override
+    public Page<Advertisement> getAdvertisementByFilters(
+            User user,
+            String keyword,
+            String title,
+            String location,
+            String objectState,
+            String category,
+            int page,
+            int size) {
+        if (keyword == null && title == null && location == null && objectState == null) {
+            return advertisementRepository.findAll(PageRequest.of(page, size));
+        }
+        if (user != null) {
+            Search search = Search.builder()
+                    .keywords(keyword)
+                    .location(location)
+                    .categoryName(category)
+                    .objectState(objectState)
+                    .title(title)
+                    .user(user)
+                    .build();
+
+            searchRepository.save(search);
+            log.info("Save search for user with id "+user.getId());
+        }
+
+        return advertisementRepository.
+                findAdvertisementByFilters(keyword, title, location, objectState, category,PageRequest.of(page, size));
+    }
+
+
 }

@@ -30,6 +30,7 @@ public class AdvertisementDto {
     private String objectState;
     private UserDto user;
     private CategoryDto category;
+    private String keywords;
 
      public static AdvertisementDto fromEntity(Advertisement advertisement) {
          if (advertisement == null) {
@@ -45,6 +46,7 @@ public class AdvertisementDto {
                      .objectState(advertisement.getObjectState())
                      .user(UserDto.fromEntity(advertisement.getUser()))
                      .category(CategoryDto.fromEntity(advertisement.getCategory()))
+                     .keywords(advertisement.getKeywords())
                      .build();
 
      }
@@ -64,6 +66,7 @@ public class AdvertisementDto {
          advertisement.setObjectState(advertisementDto.getObjectState());
          advertisement.setUser(UserDto.toEntity(advertisementDto.getUser()));
          advertisement.setCategory(CategoryDto.toEntity(advertisementDto.getCategory()));
+         advertisement.setKeywords(advertisementDto.getKeywords());
          return advertisement;
      }
 }
