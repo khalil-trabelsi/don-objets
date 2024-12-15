@@ -72,7 +72,7 @@ public class AdvertisementController {
     }
 
     @GetMapping("deposer-une-annonce")
-    public String getAdvertisementForm(Model model, Authentication authentication) {
+    public String getAdvertisementForm(Model model, Authentication authentication, @PathParam(value="false") boolean addCategorySuccess) {
         if (authentication == null) {
             return "redirect:/login";
         }
@@ -80,6 +80,8 @@ public class AdvertisementController {
         List<CategoryDto> categories = categoryService.getAllCategories();
         model.addAttribute("categories", categories);
         model.addAttribute("advertisement", new Advertisement());
+        model.addAttribute("newCategory", new CategoryDto());
+        model.addAttribute("addCategorySuccess", addCategorySuccess);
         return "advertisementCreationForm";
     }
 
@@ -121,7 +123,7 @@ public class AdvertisementController {
     }
 
     @GetMapping("/advertisement/edit")
-    public String getupdateAdvertisementForm(@RequestParam int id, Model model, Authentication authentication) {
+    public String getUpdateAdvertisementForm(@RequestParam int id, Model model, Authentication authentication) {
         if (authentication == null) {
             return "redirect:/login";
         }

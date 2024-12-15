@@ -1,7 +1,9 @@
 package com.m2.controller.api;
 
+import com.m2.dto.AdvertisementDto;
 import com.m2.dto.Categories;
 import com.m2.dto.CategoryDto;
+import com.m2.service.AdvertisementService;
 import com.m2.service.CategoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -14,12 +16,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 @AllArgsConstructor
 @Slf4j
 public class CategoryApi {
 
     private final CategoryService categoryService;
+    private final AdvertisementService advertisementService;
+
 
     @GetMapping()
     public ResponseEntity<Categories> getAllCategories() {
@@ -28,14 +32,14 @@ public class CategoryApi {
     }
 
     @GetMapping(path="/{id}")
-    public ResponseEntity<CategoryDto> getCategoryByLabel(@PathVariable Integer id) {
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Integer id) {
         CategoryDto categoryDto = categoryService.getCategoryById(id);
         return ResponseEntity.ok().body(categoryDto);
 
     }
 
     @PostMapping
-    public CategoryDto save(@RequestBody  CategoryDto categoryDto, HttpServletRequest request) {
+    public CategoryDto createCatgeory(@RequestBody  CategoryDto categoryDto, HttpServletRequest request) {
         log.info("Creating category: " + categoryDto);
         log.error("request headers: " + request.getHeader("Content-Type"));
         return categoryService.createCategory(categoryDto);
@@ -55,5 +59,12 @@ public class CategoryApi {
     public void delete(@PathVariable  Integer id) {
         categoryService.deleteCategoryById(id);
     }
+
+    @GetMapping(path= "/{id}/advertisements")
+    public List<AdvertisementDto> getAdvertisementsByCategoryId(@PathVariable int id) {
+        return advertisementService.getAllByCategoryId(id);
+    }
+
+
 
 }

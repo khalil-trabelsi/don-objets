@@ -1,5 +1,6 @@
 package com.m2.service;
 
+import com.m2.dto.AdvertisementDto;
 import com.m2.dto.UserDto;
 import com.m2.model.User;
 
@@ -21,5 +22,7 @@ public interface UserService {
     void AddRoleToUser(String roleName, String email);
 
     User loadUserByUsername(String username);
+
+    List<AdvertisementDto> getAdvertisementsByUserId(int id);
 
 }

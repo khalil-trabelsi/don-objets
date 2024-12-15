@@ -1,8 +1,12 @@
 package com.m2.service.implementation;
 
+import com.m2.dto.AdvertisementDto;
 import com.m2.dto.UserDto;
+import com.m2.exception.EntityNotFoundException;
 import com.m2.model.User;
+import com.m2.repository.AdvertisementRepository;
 import com.m2.repository.UserRepository;
+import com.m2.service.AdvertisementService;
 import com.m2.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +26,16 @@ public class UserServiceImplementation implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AdvertisementRepository advertisementRepository;
 
     @Autowired
-    public UserServiceImplementation(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImplementation(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            AdvertisementRepository advertisementRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.advertisementRepository = advertisementRepository;
     }
 
     @Override
@@ -100,6 +109,11 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User loadUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+        return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
+    @Override
+    public List<AdvertisementDto> getAdvertisementsByUserId(int id) {
+        return advertisementRepository.findAllByUserId(id).stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList());
     }
 }

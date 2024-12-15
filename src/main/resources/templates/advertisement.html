@@ -27,8 +27,11 @@
 <body>
 <div layout:fragment="wrapper">
    <div class="container-sm">
-       <h5 th:if="${!showFilters}">Mes favories</h5>
-       <div class="card mb-3" th:if="${showFilters}">
+       <h5 th:if="${showFilters !=null && !showFilters}">Mes favories</h5>
+       <h5 th:if="${username != null}">
+           Annonces publiées par <strong class="text-danger" th:text="${username}"></strong>
+       </h5>
+       <div class="card mb-3" th:if="${showFilters != null && showFilters}">
                <div class="card-header text-light" style="background-color: #023047 !important;">
                    <h5>Filters</h5>
                </div>
@@ -83,7 +86,7 @@
                </div>
            </div>
        <div class="row">
-           <div class="alert danger" role="alert" th:if="${!showFilters && advertisements.isEmpty()}">
+           <div class="alert danger" role="alert" th:if="${showFilters != null && !showFilters && advertisements.isEmpty()}">
                Votre liste de favories est vide ! <a th:href="@{/}" class="alert-link">Consulter nos annonces!</a>.
            </div>
            <div class="col-md-6 col-lg-3"  th:each="advertisement: ${advertisements}">
@@ -91,7 +94,8 @@
                    <div class="card-body">
                        <div>
                            <h5 th:text="${advertisement.title}"></h5>
-                           <a class="text-secondary" href="" th:text="${advertisement.category.label}"></a>
+                           <a class="text-secondary" th:href="@{|/categories/${advertisement.category.id}/advertisements|}"
+                              th:text="${advertisement.category.label}"></a>
                            <span style="font-size: 12px" class="badge text-bg-success text-light" th:text="${advertisement.objectState}"></span>
                        </div>
                        <p class="" th:text="${advertisement.description}"></p>
@@ -104,10 +108,10 @@
                                <i class="fa-solid fa-clock"></i>
                                <span href="" th:text="${#dates.format(advertisement.publicationDate, 'yyyy-MM-dd HH:mm')}"></span>
                            </span>
-                           <span>
+                           <span th:if="*{username==null}">
                                <i class="fa-solid fa-pen"></i>
                                <span>By </span>
-                               <a href="" th:text="${advertisement.user.username}"></a>
+                               <a th:href="@{|/users/${advertisement.user.id}/advertisements|}" th:text="${advertisement.user.username}"></a>
                            </span>
                            <span style="font-size: 16px" class="badge text-bg-warning text-light mt-1" th:text="${advertisement.deliveryOption}"></span>
                        </div>

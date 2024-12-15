@@ -27,14 +27,15 @@
 <body>
 <div layout:fragment="wrapper">
     <div class="container-sm">
-        <h2>Mes annonces</h2>
+        <h2 >
+            Annonces dans <strong th:text="${category.label}" class="text-danger"></strong>
+        </h2>
         <div class="row">
             <div class="col-md-6 col-lg-3"  th:each="advertisement: ${advertisements}">
                 <div class="card mb-3">
                     <div class="card-body">
                         <div>
                             <h5 th:text="${advertisement.title}"></h5>
-                            <a class="text-secondary" href="" th:text="${advertisement.category.label}"></a>
                             <span style="font-size: 12px" class="badge text-bg-success text-light" th:text="${advertisement.objectState}"></span>
                         </div>
                         <p class="" th:text="${advertisement.description}"></p>

@@ -13,14 +13,16 @@
             border-color: #adb5bd !important;
         }
     </style>
-
 </head>
 <body>
 
 <div layout:fragment="wrapper">
     <div class="container-md">
         <h3>Déposer votre annonce</h3>
-
+        <div th:if="${addCategorySuccess != null && addCategorySuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
+            La catégorie a été ajoutée avec succès !
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="card mt-5">
             <div class="card-body">
                 <form method="post" th:action="@{/createAdvertisement}" th:object="${advertisement}">
@@ -43,6 +45,12 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="mt-3">
                                 <label for="categories" class="form-label">Catégories</label>
+                                <!-- Button trigger modal -->
+                                <span>  Ou </span>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                  Créer une nouvelle catégorie
+                                </button>
+
                                 <select id="categories"  class="form-control" th:field="*{category.id}" >
                                     <option value="0">Choisissez</option>
                                     <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.label}"></option>
@@ -89,6 +97,38 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une nouvelle catégorie</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" th:action="@{/categories}" th:object="${newCategory}" id="categoryForm">
+                        <div >
+                            <label for="label">Label</label>
+                            <input id="label" class="form-control" type="text" th:field="*{label}">
+                        </div>
+                        <div class="mt-3">
+                            <div class="mb-3">
+                                <label for="categoryDesc" class="form-label">Description</label>
+                                <textarea class="form-control" id="categoryDesc" rows="3" th:field="*{description}"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p th:text="${#strings.isEmpty(newCategory.label)}"></p>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" id="submitBtn" class="btn btn-outline-success">Créer</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>
