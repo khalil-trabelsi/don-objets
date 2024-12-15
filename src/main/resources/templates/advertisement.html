@@ -123,7 +123,10 @@
                    </div>
                    <div class="card-footer justify-content-between align-items-center d-flex">
                        <div>
-                           <button class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button>
+                           <form th:action="@{/cart/{userId}/{advertisementId}(userId=${authenticatedUser.id}, advertisementId=${advertisement.id})}" method="post" style="display: inline">
+                               <button type="submit" class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button>
+                           </form>
+
                            <form th:action="@{/favorites/add}" method="GET" class="d-inline">
                                <input type="number" hidden="hidden" name="userId" th:value="${userId}">
                                <input type="number" hidden="hidden" name="advertisementId" th:value="${advertisement.id}">

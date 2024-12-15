@@ -72,13 +72,22 @@
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div id="keywords">
-                            <label>Mots-clés</label>
-                            <input class="form-control" type="text" th:field="*{keywords}" placeholder="Mots clés">
-                            <div id="keywordsHelp" class="form-text text-danger">Veuillez saisir les mots-clés séparés par une virgule!</div>
+                        <div class="col-md-6">
+                            <div id="keywords">
+                                <label>Mots-clés</label>
+                                <input class="form-control" type="text" th:field="*{keywords}" placeholder="Mots clés">
+                                <div id="keywordsHelp" class="form-text text-danger">Veuillez saisir les mots-clés séparés par une virgule!</div>
+                            </div>
                         </div>
-                    </div>
-
+                        <div class="col-md-6">
+                            <label for="delivery" class="form-label">Type de livraison</label>
+                            <select id="delivery"  class="form-control" th:field="*{deliveryOption}" >
+                                <option value="">Choisissez</option>
+                                <option value="Livraison à domicile">Livraison à domicile</option>
+                                <option value="En main propre">En main propre</option>
+                            </select>
+                        </div>
+                        </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mt-3">

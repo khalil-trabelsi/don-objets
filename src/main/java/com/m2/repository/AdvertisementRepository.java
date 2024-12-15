@@ -18,6 +18,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
             "(:title IS NULL OR :title = '' OR LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))) AND " +
             "(:location IS NULL OR :location = '' OR LOWER(a.location) LIKE LOWER(CONCAT('%', :location, '%'))) AND " +
             "(:objectState IS NULL OR :objectState = '' OR LOWER(a.objectState) = LOWER(:objectState)) AND " +
+            "(a.available = true) AND " +
             "(:category IS NULL OR :category = '' OR LOWER(a.category.label) LIKE LOWER(CONCAT('%', :category, '%')))")
     Page<Advertisement> findAdvertisementByFilters(
             String keyword,
@@ -29,7 +30,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
 
 
 
-    @Query("SELECT a FROM Advertisement a WHERE a.user.id != :userId")
+    @Query("SELECT a FROM Advertisement a WHERE a.user.id != :userId and a.available = true")
     Page<Advertisement> findAllExcludingCurrentUser(int userId, Pageable pageable);
 
     @Query("SELECT a FROM Advertisement a WHERE " +
@@ -38,7 +39,7 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
             "(:location IS NULL OR :location = '' OR LOWER(a.location) LIKE LOWER(CONCAT('%', :location, '%'))) AND " +
             "(:objectState IS NULL OR :objectState = '' OR LOWER(a.objectState) = LOWER(:objectState)) AND " +
             "(:category IS NULL OR :category = '' OR LOWER(a.category.label) LIKE LOWER(CONCAT('%', :category, '%'))) AND " +
-            "(a.user.id != :userId)"
+            "(a.user.id != :userId) AND a.available = true"
     )
     Page<Advertisement> findAdvertisementExcludingCurrentUserByFilters(
             int userId,
@@ -49,10 +50,13 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
             String category,
             Pageable pageable);
 
-    @Query("SELECT a FROM Advertisement a WHERE a.user.id = :userId")
+    @Query("SELECT a FROM Advertisement a WHERE a.user.id = :userId and a.available = true")
     List<Advertisement> findAllByUserId(int userId);
 
-    @Query("SELECT a FROM Advertisement a WHERE a.category.id = :categoryId AND a.user.id != :userId")
+    @Query("SELECT a FROM Advertisement a WHERE a.user.id = :userId")
+    List<Advertisement> findAllByCurrentUserId(int userId);
+
+    @Query("SELECT a FROM Advertisement a WHERE a.category.id = :categoryId AND a.user.id != :userId AND a.available")
     List<Advertisement> findAllByCategoryIdExcludingCurrentUser(int categoryId, int userId);
 
     @Query("SELECT a FROM Advertisement a WHERE a.category.id = :categoryId")

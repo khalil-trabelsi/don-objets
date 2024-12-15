@@ -31,6 +31,7 @@ public class AdvertisementDto {
     private UserDto user;
     private CategoryDto category;
     private String keywords;
+    private Boolean available;
 
      public static AdvertisementDto fromEntity(Advertisement advertisement) {
          if (advertisement == null) {
@@ -47,6 +48,7 @@ public class AdvertisementDto {
                      .user(UserDto.fromEntity(advertisement.getUser()))
                      .category(CategoryDto.fromEntity(advertisement.getCategory()))
                      .keywords(advertisement.getKeywords())
+                     .available(advertisement.getAvailable())
                      .build();
 
      }
@@ -56,17 +58,18 @@ public class AdvertisementDto {
              return null;
          }
 
-         Advertisement advertisement = new Advertisement();
-         advertisement.setId(advertisementDto.getId());
-         advertisement.setTitle(advertisementDto.getTitle());
-         advertisement.setDescription(advertisementDto.getDescription());
-         advertisement.setPublicationDate(advertisementDto.getPublicationDate());
-         advertisement.setLocation(advertisementDto.getLocation());
-         advertisement.setDeliveryOption(advertisementDto.getDeliveryOption());
-         advertisement.setObjectState(advertisementDto.getObjectState());
-         advertisement.setUser(UserDto.toEntity(advertisementDto.getUser()));
-         advertisement.setCategory(CategoryDto.toEntity(advertisementDto.getCategory()));
-         advertisement.setKeywords(advertisementDto.getKeywords());
-         return advertisement;
+         return Advertisement.builder()
+                 .id(advertisementDto.getId())
+                 .title(advertisementDto.getTitle())
+                 .description(advertisementDto.getDescription())
+                 .publicationDate(advertisementDto.getPublicationDate())
+                 .location(advertisementDto.getLocation())
+                 .deliveryOption(advertisementDto.getDeliveryOption())
+                 .objectState(advertisementDto.getObjectState())
+                 .user(UserDto.toEntity(advertisementDto.getUser()))
+                 .category(CategoryDto.toEntity(advertisementDto.getCategory()))
+                 .keywords(advertisementDto.getKeywords())
+                 .available(advertisementDto.getAvailable())
+                 .build();
      }
 }

@@ -57,6 +57,10 @@ public class User {
     @JsonBackReference
     private List<Advertisement> favorites = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
 
 }

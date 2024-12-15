@@ -198,7 +198,7 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
 
     @Override
     public List<AdvertisementDto> getAllAdvertisementsByUserId(int userId) {
-        return advertisementRepository.findAllByUserId(userId).stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList());
+        return advertisementRepository.findAllByCurrentUserId(userId).stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList());
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Builder
 public class Advertisement {
 
     @Id
@@ -42,8 +43,8 @@ public class Advertisement {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @Column
     private String objectState;
+    private Boolean available;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

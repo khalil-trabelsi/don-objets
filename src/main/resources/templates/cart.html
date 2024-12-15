@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="index.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d6ce44b3a9.js" crossorigin="anonymous"></script>
+    <style>
+        .custom-border {
+            border: 2px dashed #DDD;
+        }
+        .favorite-icon {
+            font-size: 26px;
+            vertical-align: middle;
+        }
+
+        .favorite-icon:hover {
+            color: red;
+        }
+    </style>
+
+</head>
+<body>
+<div layout:fragment="wrapper">
+    <div class="container-sm" th:if="${cart.getCartItems().isEmpty()}">
+        <div class="d-flex justify-content-between align-items-center" >
+            <h4>
+                Cart
+            </h4>
+        </div>
+
+        <div class="">
+            Votre panier est vide. <a th:href="@{/}"><strong>Consulter nos annonces</strong></a>
+        </div>
+    </div>
+
+    <div class="container-sm" th:if="!${cart.getCartItems().isEmpty()}">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4>
+                Cart <span style="font-size: 18px" class="text-danger" th:text="${cart.getCartItems().size()}"></span>
+            </h4>
+            <div class="d-flex align-items-center">
+                <form class="me-2" method="post" th:action="@{/orders}">
+                    <button  class="btn btn-outline-primary">Passer la commande</button>
+                </form>
+                <form method="post" th:action="@{/cart/{cartId}/remove(cartId=${cart.id})}">
+                    <button class="btn btn-danger">Vider le panier</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div style="background-color: #dee2e6" class="card mb-3" th:each="cartItems: ${cart.getCartItems()}">
+            <div class="card-body">
+                <h5 th:text="${cartItems.getAdvertisement().title}"></h5>
+                <p th:text="${cartItems.getAdvertisement().description}"></p>
+                <p th:text="${cartItems.getAdvertisement().location}"></p>
+                <p th:text="${cartItems.getAdvertisement().objectState}"></p>
+                <p th:text="${cartItems.getAdvertisement().deliveryOption}"></p>
+            </div>
+            <div class="card-footer">
+                <form th:action="@{/cart/{cartId}/cartItems/{cartItemId}/remove(cartId=${cart.id}, cartItemId=${cartItems.getId()})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

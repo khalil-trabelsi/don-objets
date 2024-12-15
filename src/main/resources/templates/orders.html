@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="index.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d6ce44b3a9.js" crossorigin="anonymous"></script>
+    <style>
+        .custom-border {
+            border: 2px dashed #DDD;
+        }
+        .favorite-icon {
+            font-size: 26px;
+            vertical-align: middle;
+        }
+
+        .favorite-icon:hover {
+            color: red;
+        }
+    </style>
+
+</head>
+<body>
+<div layout:fragment="wrapper">
+    <div class="container-sm">
+        <div class="container-sm" th:if="${orders.isEmpty()}">
+            <div class="d-flex justify-content-between align-items-center" >
+                <h4>
+                    Mes commandes
+                </h4>
+            </div>
+        </div>
+
+        <div style="background-color: #dee2e6" class="card mb-3" th:each="order: ${orders}">
+            <div class="card-header">
+                <h5>Commande
+                    <span th:text="${order.getId()}"></span>
+                </h5>
+                <p>Commande passé le <strong><span th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd HH:mm')}"></span></strong></p>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3" th:each="orderLine: ${order.getOrderLines()}">
+                        <h5 th:text="${orderLine.getAdvertisement().title}"></h5>
+                        <p th:text="${orderLine.getAdvertisement().location}"></p>
+                        <p th:text="${orderLine.getAdvertisement().objectState}"></p>
+                        <p th:text="${orderLine.getAdvertisement().deliveryOption}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

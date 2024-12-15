@@ -5,6 +5,7 @@ import com.m2.model.User;
 import com.m2.repository.AdvertisementRepository;
 import com.m2.repository.UserRepository;
 import com.m2.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -54,8 +55,10 @@ public class FavoriteController {
     @GetMapping("/add")
     public String addToFavorites(
             @RequestParam(defaultValue = "0") int advertisementId,
-            Authentication authentication) {
+            Authentication authentication,
+            HttpServletRequest request) {
         log.info("authentification {}", authentication);
+        String referer = request.getHeader("Referer");
         if (authentication == null ) {
             return "redirect:/login";
         }
@@ -78,6 +81,6 @@ public class FavoriteController {
 
         userRepository.save(user);
 
-        return "redirect:/";
+        return "redirect:" + referer;
     }
 }
