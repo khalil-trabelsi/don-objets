@@ -11,24 +11,22 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Search {
+public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+    private int userId;
 
-    private String keywords;
-    private String location;
-    private String categoryName;
-    private String objectState;
-    private String title;
     @ManyToOne
-    private User user;
-    @OneToMany(mappedBy = "search")
-    @JsonManagedReference
-    private List<Notification> notifications = new ArrayList<>();
+    private Advertisement advertisement;
+
+    @ManyToOne
+    @JsonBackReference
+    private Search search;
+
 }

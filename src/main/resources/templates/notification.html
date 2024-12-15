@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="index.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d6ce44b3a9.js" crossorigin="anonymous"></script>
+    <style>
+        .custom-border {
+            border: 2px dashed #DDD;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="wrapper">
+    <div class="container">
+        <h3>Mes recherches sauvegardées</h3>
+        <div th:each="search: ${searches}" class="card">
+            <div class="card-header" style="background: #ddd">
+                <strong>Recherche:</strong>
+                <ul>
+                    <li class="me-2" th:if="${search.getTitle() != null and !search.getTitle().isEmpty()}"
+                          th:text="'Title: ' + ${search.getTitle()}">
+                    </li>
+                    <li class="me-2" th:if="${search.getCategoryName() != null and !search.getCategoryName().isEmpty()}"
+                          th:text="'Category: ' + ${search.getCategoryName()}">
+                    </li>
+                    <li class="me-2" th:if="${search.getLocation() != null and !search.getLocation().isEmpty()}"
+                          th:text="'Location: ' + ${search.getLocation()}">
+                    </li>
+                    <li class="me-2" th:if="${search.getObjectState() != null and !search.getObjectState().isEmpty()}"
+                          th:text="'Etat: ' + ${search.getObjectState()}">
+                    </li>
+                </ul>
+                <form method="get" th:action="@{'/notification/delete/'+${search.getId()}}">
+                    <button class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 me-4 card mb-3" th:each="notification: ${search.notifications}">
+                        <div class="card-body">
+                            <div>
+                                <h5 th:text="${notification.getAdvertisement().title}"></h5>
+                                <a class="text-secondary" href="" th:text="${notification.getAdvertisement().category.label}"></a>
+                                <span style="font-size: 12px" class="badge text-bg-success text-light" th:text="${notification.getAdvertisement().objectState}"></span>
+                            </div>
+                            <p class="" th:text="${notification.getAdvertisement().description}"></p>
+                            <div class="d-flex flex-column ">
+                   <span>
+                       <i class="fa-solid fa-location-dot"></i>
+                       <span th:text="${notification.getAdvertisement().location}"></span>
+                   </span>
+                                <span>
+                           <i class="fa-solid fa-clock"></i>
+                           <span href="" th:text="${#dates.format(notification.getAdvertisement().publicationDate, 'yyyy-MM-dd HH:mm')}"></span>
+                        </span>
+                                <span>
+                       <i class="fa-solid fa-pen"></i>
+                       <span>By </span>
+                       <a href="" th:text="${notification.getAdvertisement().user.username}"></a>
+                   </span>
+                                <span style="font-size: 16px" class="badge text-bg-warning text-light mt-1" th:text="${notification.getAdvertisement().deliveryOption}"></span>
+                            </div>
+                            <div class="d-flex align-items-center mt-1 p-2" th:class="${notification.getAdvertisement().keywords != null ? 'custom-border':'d-none'}" style="">
+                   <span style="font-size: 12px" class="badge text-bg-info text-light me-2"
+                         th:each="keyword : ${notification.getAdvertisement().keywords != null ? notification.getAdvertisement().keywords.split(',') : ''}" th:text="${keyword.trim()}">
+                   </span>
+                            </div>
+                        </div>
+                        <div class="card-footer justify-content-between align-items-center d-flex">
+                            <div>
+                                <button class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <button class="btn btn-danger"><i class="fa-regular fa-heart"></i></button>
+                            </div>
+                            <button class="btn btn-secondary text-light"><i class="fa-regular fa-message"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

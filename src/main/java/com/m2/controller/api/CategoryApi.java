@@ -23,14 +23,14 @@ public class CategoryApi {
 
     @GetMapping()
     public ResponseEntity<Categories> getAllCategories() {
-        List<CategoryDto> categories = this.categoryService.findAll();
+        List<CategoryDto> categories = this.categoryService.getAllCategories();
         return ResponseEntity.ok().body(new Categories(categories));
     }
 
     @GetMapping(path="/{id}")
     public ResponseEntity<CategoryDto> getCategoryByLabel(@PathVariable Integer id) {
-        Optional<CategoryDto> category = categoryService.findById(id);
-        return category.map(categoryDto -> ResponseEntity.ok().body(categoryDto)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+        CategoryDto categoryDto = categoryService.getCategoryById(id);
+        return ResponseEntity.ok().body(categoryDto);
 
     }
 
@@ -38,7 +38,7 @@ public class CategoryApi {
     public CategoryDto save(@RequestBody  CategoryDto categoryDto, HttpServletRequest request) {
         log.info("Creating category: " + categoryDto);
         log.error("request headers: " + request.getHeader("Content-Type"));
-        return categoryService.save(categoryDto);
+        return categoryService.createCategory(categoryDto);
     }
 
     @PutMapping(path="/{id}")
@@ -53,7 +53,7 @@ public class CategoryApi {
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable  Integer id) {
-        categoryService.deleteById(id);
+        categoryService.deleteCategoryById(id);
     }
 
 }

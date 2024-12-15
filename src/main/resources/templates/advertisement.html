@@ -13,14 +13,24 @@
         .custom-border {
             border: 2px dashed #DDD;
         }
+        .favorite-icon {
+            font-size: 26px;
+            vertical-align: middle;
+        }
+
+        .favorite-icon:hover {
+            color: red;
+        }
     </style>
+
 </head>
 <body>
 <div layout:fragment="wrapper">
    <div class="container-sm">
-       <div class="card mb-3">
-               <div class="card-header">
-                   <h5>Filter</h5>
+       <h5 th:if="${!showFilters}">Mes favories</h5>
+       <div class="card mb-3" th:if="${showFilters}">
+               <div class="card-header text-light" style="background-color: #023047 !important;">
+                   <h5>Filters</h5>
                </div>
                <div class="card-body" >
                     <form method="GET" th:action="@{/}">
@@ -73,6 +83,9 @@
                </div>
            </div>
        <div class="row">
+           <div class="alert danger" role="alert" th:if="${!showFilters && advertisements.isEmpty()}">
+               Votre liste de favories est vide ! <a th:href="@{/}" class="alert-link">Consulter nos annonces!</a>.
+           </div>
            <div class="col-md-6 col-lg-3"  th:each="advertisement: ${advertisements}">
                <div class="card mb-3">
                    <div class="card-body">
@@ -107,9 +120,21 @@
                    <div class="card-footer justify-content-between align-items-center d-flex">
                        <div>
                            <button class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button>
-                           <button class="btn btn-danger"><i class="fa-regular fa-heart"></i></button>
+                           <form th:action="@{/favorites/add}" method="GET" class="d-inline">
+                               <input type="number" hidden="hidden" name="userId" th:value="${userId}">
+                               <input type="number" hidden="hidden" name="advertisementId" th:value="${advertisement.id}">
+                               <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                   <i th:class="${ favorites != null && favorites.contains(advertisement.id) ? 'fa-solid fa-heart favorite-icon text-danger' : 'fa-regular fa-heart favorite-icon'}"></i>
+                               </button>
+                           </form>
                        </div>
-                       <button class="btn btn-secondary text-light"><i class="fa-regular fa-message"></i></button>
+                       <form th:action="@{/messages}" method="GET" class="d-inline">
+                           <input type="number" hidden="hidden" name="senderId" th:value="${userId}">
+                           <input type="number" hidden="hidden" name="receiverId" th:value="${advertisement.user.id}">
+                           <button type="submit" style="background: none; border: none; cursor: pointer;">
+                               <i class="fa-regular fa-message"></i>
+                           </button>
+                       </form>
                    </div>
                </div>
            </div>

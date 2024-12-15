@@ -1,6 +1,9 @@
 package com.m2.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +39,7 @@ public class Advertisement {
     @Column
     private String deliveryOption;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Column
@@ -44,8 +47,11 @@ public class Advertisement {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonBackReference
     private Category category;
 
     private String keywords;
-
+    @OneToMany(mappedBy = "advertisement", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<Notification> notifications = new ArrayList<>();
 }

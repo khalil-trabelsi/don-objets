@@ -18,6 +18,11 @@ public interface AdvertisementService {
     AdvertisementDto updateAdvertisement(Integer id,AdvertisementDto advertisementDto);
 
     void deleteAdvertisement(int id);
-    Page<Advertisement> getAdvertisementByFilters(User user, String keyword, String title, String location, String objectState, String category, int page, int size);
+    Page<AdvertisementDto> getAdvertisementByFilters(User user, String keyword, String title, String location, String objectState, String category, int page, int size);
+
+    List<AdvertisementDto> getAllAdvertisementsByUserId(int userId);
+
+    List<AdvertisementDto> getAllByCategoryIdExcludingCurrentUser(int categoryId, int userId);
+    List<AdvertisementDto> getAllByCategoryId(int categoryId);
 
     }

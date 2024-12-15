@@ -45,12 +45,7 @@
                            </span>
                             <span>
                                <i class="fa-solid fa-clock"></i>
-                               <span href="" th:text="${#dates.format(advertisement.publicationDate, 'yyyy-MM-dd HH:mm')}"></span>
-                           </span>
-                            <span>
-                               <i class="fa-solid fa-pen"></i>
-                               <span>By </span>
-                               <a href="" th:text="${advertisement.user.username}"></a>
+                               <span  th:text="${#dates.format(advertisement.publicationDate, 'yyyy-MM-dd HH:mm')}"></span>
                            </span>
                             <span style="font-size: 16px" class="badge text-bg-warning text-light mt-1" th:text="${advertisement.deliveryOption}"></span>
                         </div>
@@ -60,24 +55,16 @@
                            </span>
                         </div>
                     </div>
-                    <div class="card-footer justify-content-between align-items-center d-flex">
-                        <div>
-                            <button class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <form th:action="@{/favorites/add}" method="GET" class="d-inline">
-                                <input type="number" hidden="hidden" name="userId" th:value="${userId}">
-                                <input type="number" hidden="hidden" name="advertisementId" th:value="${advertisement.id}">
-                                <button type="submit" style="background: none; border: none; cursor: pointer;">
-                                    <i th:class="${ favorites != null && favorites.contains(advertisement.id) ? 'fa-solid fa-heart favorite-icon text-danger' : 'fa-regular fa-heart favorite-icon'}"></i>
-                                </button>
-                            </form>
-                        </div>
-                        <form th:action="@{/messages}" method="GET" class="d-inline">
-                            <input type="number" hidden="hidden" name="senderId" th:value="${userId}">
-                            <input type="number" hidden="hidden" name="receiverId" th:value="${advertisement.user.id}">
-                            <button type="submit" style="background: none; border: none; cursor: pointer;">
-                                <i class="fa-regular fa-message"></i>
+                    <div class="d-flex card-footer justify-content-between">
+                        <form th:action="@{/advertisement/delete}" method="GET">
+                            <input name="id" type="number" hidden="hidden" th:value="${advertisement.id}">
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
+                        <a th:href="@{'/advertisement/edit?id='+${advertisement.id}}" class="btn btn-outline-info">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
                     </div>
                 </div>
             </div>

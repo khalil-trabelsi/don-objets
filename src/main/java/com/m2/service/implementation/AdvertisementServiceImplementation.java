@@ -3,14 +3,8 @@ package com.m2.service.implementation;
 import com.m2.dto.AdvertisementDto;
 import com.m2.dto.UserDto;
 import com.m2.exception.EntityNotFoundException;
-import com.m2.model.Advertisement;
-import com.m2.model.Category;
-import com.m2.model.Search;
-import com.m2.model.User;
-import com.m2.repository.AdvertisementRepository;
-import com.m2.repository.CategoryRepository;
-import com.m2.repository.SearchRepository;
-import com.m2.repository.UserRepository;
+import com.m2.model.*;
+import com.m2.repository.*;
 import com.m2.service.AdvertisementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -30,16 +25,20 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
     private final CategoryRepository categoryRepository;
 
     private final SearchRepository searchRepository;
+
+    private final NotificationRepository notificationRepository;
     public AdvertisementServiceImplementation(
             AdvertisementRepository advertisementRepository,
             UserRepository userRepository,
             CategoryRepository categoryRepository,
-            SearchRepository searchRepository
+            SearchRepository searchRepository,
+            NotificationRepository notificationRepository
     ) {
         this.advertisementRepository = advertisementRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.searchRepository = searchRepository;
+        this.notificationRepository = notificationRepository;
     }
 
 
@@ -57,17 +56,36 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
             throw new EntityNotFoundException("Aucun utilisateur: " + advertisementDto.getUser().getId() + "n'a été trouvé dans la BDD");
         }
 
-        Optional<Category> category = this.categoryRepository.findById(advertisementDto.getCategory().getId());
-        if (category.isEmpty()) {
-            log.warn("Category with ID {} was not found in the DB", advertisementDto.getCategory().getId());
-            throw new EntityNotFoundException("Aucune catégorie " + advertisementDto.getCategory().getId() + "n'a été trouvée dans la BDD");
-        }
+        Category category = this.categoryRepository.findById(advertisementDto.getCategory().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Aucune catégorie " + advertisementDto.getCategory().getId() + "n'a été trouvée dans la BDD"));
+
 
         advertisementDto.setPublicationDate(new Date());
         Advertisement advertisement = AdvertisementDto.toEntity(advertisementDto);
         advertisement.setUser(user.get());
+        advertisement.setCategory(category);
+        advertisementRepository.save(advertisement);
+        List<Search> searches = searchRepository.findAll();
 
-        return AdvertisementDto.fromEntity(advertisementRepository.save(advertisement));
+        searches.forEach(search -> {
+            if (
+                    advertisement.getCategory().getLabel().contains(search.getCategoryName())
+                            || advertisement.getKeywords().contains(search.getKeywords())
+                            || advertisement.getLocation().contains(search.getLocation())
+                            || advertisement.getTitle().contains(search.getTitle())
+                            || advertisement.getObjectState().contains(search.getObjectState())
+            ) {
+                Notification notification = Notification.builder()
+                        .search(search)
+                        .userId(search.getUser().getId())
+                        .advertisement(advertisement)
+                        .build();
+                notificationRepository.save(notification);
+            }
+        });
+
+
+        return AdvertisementDto.fromEntity(advertisement);
     }
 
     @Override
@@ -99,8 +117,8 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
         if (advertisementDto.getDescription() != null) {
             existingAdvertisement.setDescription(advertisementDto.getDescription());
         }
-        if (advertisementDto.getPublicationDate() != null) {
-            existingAdvertisement.setPublicationDate(advertisementDto.getPublicationDate());
+        if (advertisementDto.getKeywords()  != null ) {
+            existingAdvertisement.setKeywords(advertisementDto.getKeywords());
         }
         if (advertisementDto.getLocation() != null) {
             existingAdvertisement.setLocation(advertisementDto.getLocation());
@@ -135,7 +153,7 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
     }
 
     @Override
-    public Page<Advertisement> getAdvertisementByFilters(
+    public Page<AdvertisementDto> getAdvertisementByFilters(
             User user,
             String keyword,
             String title,
@@ -144,26 +162,55 @@ public class AdvertisementServiceImplementation implements AdvertisementService 
             String category,
             int page,
             int size) {
-        if (keyword == null && title == null && location == null && objectState == null) {
-            return advertisementRepository.findAll(PageRequest.of(page, size));
-        }
+
         if (user != null) {
-            Search search = Search.builder()
-                    .keywords(keyword)
-                    .location(location)
-                    .categoryName(category)
-                    .objectState(objectState)
-                    .title(title)
-                    .user(user)
-                    .build();
+            if ((keyword == null || keyword.isEmpty()) && (title == null || title.isEmpty()) && (location == null || location.isEmpty())
+                    && (objectState == null || objectState.isEmpty())) {
+                return advertisementRepository.findAllExcludingCurrentUser(user.getId(),PageRequest.of(page, size)).map(AdvertisementDto::fromEntity);
+            } else {
+                Search search = Search.builder()
+                        .keywords(keyword)
+                        .location(location)
+                        .categoryName(category)
+                        .objectState(objectState)
+                        .title(title)
+                        .user(user)
+                        .build();
 
-            searchRepository.save(search);
-            log.info("Save search for user with id "+user.getId());
+                searchRepository.save(search);
+                return advertisementRepository.
+                        findAdvertisementExcludingCurrentUserByFilters(user.getId(),keyword, title, location, objectState, category,PageRequest.of(page, size)).map(AdvertisementDto::fromEntity);
+            }
+
+
+        } else {
+            if (keyword == null && title == null && location == null && objectState == null) {
+                return advertisementRepository.findAll(PageRequest.of(page, size)).map(AdvertisementDto::fromEntity);
+            } else {
+                return advertisementRepository.
+                        findAdvertisementByFilters(keyword, title, location, objectState, category,PageRequest.of(page, size)).map(AdvertisementDto::fromEntity);
+
+            }
+
         }
 
-        return advertisementRepository.
-                findAdvertisementByFilters(keyword, title, location, objectState, category,PageRequest.of(page, size));
     }
 
+    @Override
+    public List<AdvertisementDto> getAllAdvertisementsByUserId(int userId) {
+        return advertisementRepository.findAllByUserId(userId).stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AdvertisementDto> getAllByCategoryIdExcludingCurrentUser(int categoryId, int userId) {
+        return advertisementRepository.findAllByCategoryIdExcludingCurrentUser(categoryId, userId)
+                .stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AdvertisementDto> getAllByCategoryId(int categoryId) {
+        return advertisementRepository.findAllByCategoryId(categoryId)
+                .stream().map(AdvertisementDto::fromEntity).collect(Collectors.toList());
+    }
 
 }

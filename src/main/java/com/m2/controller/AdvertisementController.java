@@ -2,17 +2,20 @@ package com.m2.controller;
 
 import com.m2.dto.AdvertisementDto;
 import com.m2.dto.CategoryDto;
+import com.m2.dto.UserDto;
 import com.m2.exception.EntityNotFoundException;
-import com.m2.model.Advertisement;
-import com.m2.model.Category;
-import com.m2.model.User;
+import com.m2.model.*;
 import com.m2.repository.AdvertisementRepository;
 import com.m2.repository.CategoryRepository;
+import com.m2.repository.NotificationRepository;
+import com.m2.repository.SearchRepository;
 import com.m2.service.AdvertisementService;
 import com.m2.service.CategoryService;
 import com.m2.service.UserService;
+import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -21,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -32,6 +36,8 @@ public class AdvertisementController {
     private final UserService userService;
     private final CategoryService categoryService;
     private final AdvertisementService advertisementService;
+    private final SearchRepository searchRepository;
+    private final NotificationRepository notificationRepository;
 
     @GetMapping
     public String get(Model model,
@@ -44,16 +50,14 @@ public class AdvertisementController {
                       @RequestParam(name = "objectState", required = false) String objectState,
                       @RequestParam(name = "category", required = false) String category
     ) {
-//        Page<Advertisement> advertisementPage =  advertisementRepository.findAll(PageRequest.of(page, size));
         User user = null;
         if (authentication != null && authentication.isAuthenticated()) {
-            log.warn(authentication.getName());
             user = userService.loadUserByUsername(authentication.getName());
+            model.addAttribute("userId", user.getId());
+            model.addAttribute("favorites", user.getFavorites().stream().map(Advertisement::getId).collect(Collectors.toList()));
         }
-        Page<Advertisement> advertisementsPage = advertisementService.getAdvertisementByFilters(user,keyword, title, location, objectState,category, page, size);
-        log.info("Search: "+ advertisementsPage);
-//        List<String> keywords = new ArrayList<>(Arrays.asList(advertisementPage.split(",")));
-        List<CategoryDto> categories = categoryService.findAll();
+        Page<AdvertisementDto> advertisementsPage = advertisementService.getAdvertisementByFilters(user,keyword, title, location, objectState,category, page, size);
+        List<CategoryDto> categories = categoryService.getAllCategories();
         model.addAttribute("categories", categories);
         model.addAttribute("advertisements", advertisementsPage);
         model.addAttribute("pages", new int[advertisementsPage.getTotalPages()]);
@@ -63,12 +67,17 @@ public class AdvertisementController {
         model.addAttribute("objectState", objectState);
         model.addAttribute("title", title);
         model.addAttribute("category", category);
+        model.addAttribute("showFilters", true);
         return "advertisement";
     }
 
     @GetMapping("deposer-une-annonce")
-    public String createAdvertisementForm(Model model) {
-        List<CategoryDto> categories = categoryService.findAll();
+    public String getAdvertisementForm(Model model, Authentication authentication) {
+        if (authentication == null) {
+            return "redirect:/login";
+        }
+
+        List<CategoryDto> categories = categoryService.getAllCategories();
         model.addAttribute("categories", categories);
         model.addAttribute("advertisement", new Advertisement());
         return "advertisementCreationForm";
@@ -77,17 +86,68 @@ public class AdvertisementController {
     @PostMapping("/createAdvertisement")
     public String createAdvertisement(Model model, @ModelAttribute AdvertisementDto advertisementDto, Authentication authentication) {
         User user = userService.loadUserByUsername(authentication.getName());
-        CategoryDto category = categoryService.findById(advertisementDto.getCategory().getId())
-                .orElseThrow(() -> new EntityNotFoundException("Cannot find category with ID: "+advertisementDto.getCategory().getId()));
-        Advertisement advertisement = AdvertisementDto.toEntity(advertisementDto);
-        advertisement.setUser(user);
-        advertisement.setPublicationDate(new Date());
-        advertisement.setCategory(CategoryDto.toEntity(category));
-        advertisementRepository.save(advertisement);
-        model.addAttribute("advertisement", new Advertisement());
+        advertisementDto.setUser(UserDto.fromEntity(user));
+        advertisementService.createAdvertisement(advertisementDto);
+        model.addAttribute("advertisement", new AdvertisementDto());
         return "redirect:/";
     }
 
 
+    @GetMapping("/mes-annonces")
+
+    public String getAllAdvertisementsByUserId(Authentication authentication, Model model) {
+        if (authentication ==  null) {
+            return "redirect:/login";
+        }
+        User user = userService.loadUserByUsername(authentication.getName());
+        List<AdvertisementDto> advertisementDtos = advertisementService.getAllAdvertisementsByUserId(user.getId());
+        model.addAttribute("advertisements", advertisementDtos);
+        return "my-advertisement";
+    }
+
+    @GetMapping("/advertisement/delete")
+    public String deleteAdvertisement(@RequestParam int id, Authentication authentication) {
+        if (authentication == null) {
+            return "redirect:/login";
+        }
+        User currentUser = userService.loadUserByUsername(authentication.getName());
+        AdvertisementDto advertisementDto = advertisementService.getAdvertisementById(id);
+        if(advertisementDto.getUser().getId() != currentUser.getId()) {
+            return "errorPage";
+        }
+        advertisementService.deleteAdvertisement(id);
+
+        return "redirect:/mes-annonces";
+    }
+
+    @GetMapping("/advertisement/edit")
+    public String getupdateAdvertisementForm(@RequestParam int id, Model model, Authentication authentication) {
+        if (authentication == null) {
+            return "redirect:/login";
+        }
+        User currentUser = userService.loadUserByUsername(authentication.getName());
+        AdvertisementDto advertisementDto = advertisementService.getAdvertisementById(id);
+        if(advertisementDto.getUser().getId() != currentUser.getId()) {
+            return "errorPage";
+        }
+
+        List<CategoryDto> categoryDtos = categoryService.getAllCategories();
+
+        model.addAttribute("advertisementDto", advertisementDto);
+        model.addAttribute("categoryId", advertisementDto.getCategory().getId());
+        model.addAttribute("categories", categoryDtos);
+        return "updateAdvertisement";
+    }
+
+    @PostMapping("/advertisement/edit/{id}")
+public String updateAdvertisement(@PathVariable  int id,@ModelAttribute AdvertisementDto advertisementDto, Model model, Authentication authentication) {
+        if (authentication == null) {
+            return "redirect:/login";
+        }
+
+        AdvertisementDto updatedAdvertisementDto = advertisementService.updateAdvertisement(id, advertisementDto);
+        model.addAttribute("advertisement", updatedAdvertisementDto);
+        return "redirect:/mes-annonces";
+    }
 
 }

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="index.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d6ce44b3a9.js" crossorigin="anonymous"></script>
+
+    <style>
+        .form-control {
+            border-color: #adb5bd !important;
+        }
+    </style>
+
+</head>
+<body>
+
+<div layout:fragment="wrapper">
+    <div class="container-md">
+        <h3>Déposer votre annonce</h3>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <form method="post" th:action="@{'/advertisement/edit/'+${advertisementDto.id}}" th:object="${advertisementDto}">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="mt-3">
+                                <label for="title" class="form-label">Titre de l'annonce</label>
+                                <input type="text" class="form-control" id="title" th:field="*{title}">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="mt-3">
+                                <label for="location" class="form-label">Localisation</label>
+                                <input type="text" class="form-control" id="location" th:field="*{location}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="mt-3">
+                                <label for="categories" class="form-label">Catégories</label>
+                                <select id="categories"  class="form-control" th:field="*{category.id}" >
+                                    <option th:each="category_ : ${categories}"
+                                            th:value="${category_.id}"
+                                            th:text="${category_.label}"
+                                            th:selected="${categoryId == category_.id}">
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="mt-3">
+                                <label for="state" class="form-label">État</label>
+                                <select id="state"  class="form-control" th:field="*{objectState}" >
+                                    <option value="">Choisissez</option>
+                                    <option value="État neuf">État neuf</option>
+                                    <option value="Très bon état">Très bon état</option>
+                                    <option value="Bon état">Bon état</option>
+                                    <option value="État satisfaisant">État satisfaisant</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div id="keywords">
+                            <label>Mots-clés</label>
+                            <input class="form-control" type="text" th:field="*{keywords}" placeholder="Mots clés">
+                            <div id="keywordsHelp" class="form-text text-danger">Veuillez saisir les mots-clés séparés par une virgule!</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mt-3">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" rows="3" th:field="*{description}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a type="button" class="btn btn-outline-info" th:href="@{/mes-annonces}">Retour</a>
+                        <button type="submit" class="btn btn-outline-primary">Sauvegarder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

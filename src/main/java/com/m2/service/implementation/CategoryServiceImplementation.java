@@ -1,6 +1,7 @@
 package com.m2.service.implementation;
 
 import com.m2.dto.CategoryDto;
+import com.m2.exception.EntityNotFoundException;
 import com.m2.model.Category;
 import com.m2.repository.CategoryRepository;
 import com.m2.service.CategoryService;
@@ -27,23 +28,24 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public CategoryDto save(CategoryDto category) {
+    public CategoryDto createCategory(CategoryDto category) {
         return CategoryDto.fromEntity(
                 categoryRepository.save(CategoryDto.toEntity(category))
         );
     }
 
     @Override
-    public Optional<CategoryDto> findById(Integer id) {
-        return categoryRepository.findById(id).map(CategoryDto::fromEntity);
+    public CategoryDto getCategoryById(Integer id) {
+        return categoryRepository.findById(id).map(CategoryDto::fromEntity)
+                .orElseThrow(() -> new EntityNotFoundException("Category with "+ id +"Not found"));
     }
     @Override
-    public CategoryDto findByLabel(String label) {
+    public CategoryDto getCategoryByLabel(String label) {
         return null;
     }
 
     @Override
-    public List<CategoryDto> findAll() {
+    public List<CategoryDto> getAllCategories() {
         return categoryRepository.findAll().stream().map(CategoryDto::fromEntity).collect(Collectors.toList());
     };
 
@@ -62,7 +64,7 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteCategoryById(Integer id) {
         if (id == null) {
             log.error("id is null");
             return;

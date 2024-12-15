@@ -1,6 +1,8 @@
 package com.m2.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -24,17 +27,36 @@ public class User {
     @Column(unique = true)
     private String username;
     private String email;
+    @JsonIgnore
     private String password;
     private Date registeredAt;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Collection<Advertisement> advertisements;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Search> searches;
+
+    @OneToMany(mappedBy = "sender")
+    private Collection<Message> sentMessages;
+
+    @OneToMany(mappedBy = "receiver")
+    private Collection<Message> receivedMessages;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorites",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "advertisement_id", referencedColumnName = "id")
+    )
+    @JsonBackReference
+    private List<Advertisement> favorites = new ArrayList<>();
+
 
 
 }

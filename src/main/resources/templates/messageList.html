@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/Layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="index.html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messagerie</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+  <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .modal-dialog {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      max-width: 400px;
+      margin: 0;
+    }
+    .modal-content {
+      border-radius: 15px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .modal-header {
+      background-color: #0078d4;
+      color: white;
+      border-radius: 15px 15px 0 0;
+    }
+    .modal-body {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .list-group-item {
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+    }
+    .modal {
+      display: none;
+    }
+    .modal:target {
+      display: block;
+    }
+    .btn-open {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1050;
+    }
+  </style>
+</head>
+<body>
+<div layout:fragment="wrapper">
+  <a href="#messageModal" class="btn btn-primary btn-open">Ouvrir la messagerie</a>
+
+  <div id="messageModal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Messages</h5>
+          <a href="#" class="btn-close" aria-label="Fermer"></a>
+        </div>
+        <div class="modal-body" id="messageList">
+          <ul class="list-group">
+            <li th:if="${#lists.isEmpty(messages.content)}" class="list-group-item">
+              <div>Aucun message à afficher.</div>
+            </li>
+            <li th:each="message : ${messages.content}" class="list-group-item">
+              <div>
+                <strong>Expéditeur :</strong>
+                <span th:text="${message.sender?.username ?: 'Inconnu'}"></span>
+              </div>
+              <div>
+                <strong>Récepteur :</strong>
+                <span th:text="${message.receiver?.username ?: 'Inconnu'}"></span>
+              </div>
+              <div>
+                <strong>Contenu :</strong>
+                <span th:text="${message.content ?: 'Message vide'}"></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="modal-footer">
+          <form action="/messages/send" method="POST" class="d-flex w-100">
+            <input type="hidden" name="senderId" th:value="${senderId}">
+            <input type="hidden" name="receiverId" th:value="${receiverId}">
+            <input type="text" name="message" class="form-control me-2" placeholder="Écrivez un message...">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
